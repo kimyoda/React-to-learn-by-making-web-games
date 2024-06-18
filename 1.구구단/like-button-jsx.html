@@ -5,25 +5,11 @@
 <div id="root"></div>
 <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <!--<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>-->
 <!--<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>-->
-<script>
+<script type="text/babel">
   'use strict';
-
-  const e = React.createElement;
-
-  // 사이트에서 바뀌는 state를 확인하고 감을 잡아보자.
-  function LikeButton() { // 함수 컴포넌트
-    const [liked, setLiked] = React.useState(false);
-    if (liked) {
-      return 'You liked this.';
-    }
-    return (
-      <button onClick={() => { setLiked(true);}}>
-        Like
-        </button>
-    )
-  }
 
   class LikeButton extends React.Component {
     constructor(props) {
@@ -36,12 +22,16 @@
         return 'You liked this.';
       }
 
-      return e('button', {onClick: () => this.setState({liked: true})}, 'Like');
+      return (
+        <button onClick={() => this.setState({liked: true})}>
+          Like
+        </button>
+      );
     }
   }
 </script>
-<script>
-  ReactDOM.createRoot(document.querySelector('#root')).render(e(LikeButton));
+<script type="text/babel">
+  ReactDOM.createRoot(document.querySelector('#root')).render(<LikeButton/>);
 </script>
 </body>
 </html>
