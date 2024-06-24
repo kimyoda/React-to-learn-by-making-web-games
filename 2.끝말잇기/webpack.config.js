@@ -1,4 +1,6 @@
 const { debug } = require("console");
+const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+
 const path = require("path");
 const webpack = require("webpack");
 
@@ -32,15 +34,24 @@ module.exports = {
             ],
             "@babel/preset-react",
           ],
-          plugins: [],
+          plugins: [
+            "@babel/plugin-proposal-class-properties",
+            "react-refresh/babel",
+          ],
         },
       },
     ],
   },
   // plugins 추가(debug: true 같은 설정값들을 추가함)
-  plugins: [new webpack.LoaderOptionsPlugin({ debug: true })],
+  plugins: [new RefreshWebpackPlugin()],
   output: {
     path: path.join(__dirname, "dist"),
     filename: "app.js",
+  },
+  // 프론트 개발 편의를 위해 세팅(강의버젼과 다름)
+  devServer: {
+    devMiddleware: { publicPath: "/dist" },
+    static: { directory: path.resolve(__dirname) },
+    hot: true,
   },
 };
