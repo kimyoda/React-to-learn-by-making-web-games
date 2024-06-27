@@ -12,7 +12,7 @@ function getNumbers() {
   return array;
 }
 
-class NumberBaseball extends Component {
+class NumberBaseballClass extends Component {
   state = {
     result: "",
     value: "",
@@ -99,4 +99,4 @@ class NumberBaseball extends Component {
   }
 }
 
-export default NumberBaseball;
+export default NumberBaseballClass;
