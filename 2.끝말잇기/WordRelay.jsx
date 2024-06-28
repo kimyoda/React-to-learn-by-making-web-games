@@ -27,7 +27,7 @@ const WordRelay = () => {
     }
   };
 
-  // 컨트롤드 인풋(Controoled Input)
+  // 컨트롤드 인풋(Controlled Input)
   /**
    * React 상태(state)와 연결된 인풋, 컴포넌트의 상태에 의해 제어
    * const ControlledInput = () => {
