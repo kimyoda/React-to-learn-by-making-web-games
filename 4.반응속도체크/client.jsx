@@ -4,6 +4,4 @@ import ReactDOM from "react-dom/client";
 import ResponseCheck from "./ResponseCheck.jsx";
 import ResponseCheckClass from "./ResponseCheckClass.jsx";
 
-ReactDOM.createRoot(document.querySelector("#root")).render(
-  <ResponseCheckClass />
-);
+ReactDOM.createRoot(document.querySelector("#root")).render(<ResponseCheck />);
