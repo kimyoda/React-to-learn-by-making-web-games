@@ -45,14 +45,23 @@ class ResponseCheckClass extends Component {
     }
   };
 
+  onReset = () => {
+    this.setState({
+      result: [],
+    });
+  };
+
   renderAerage = () => {
     const { result } = this.state;
     {
       return result.length === 0 ? null : (
-        <div>
-          평균 시간: {result.reduce((a, c) => a + c) / result.length}
-          ms
-        </div>
+        <>
+          <div>
+            평균 시간: {result.reduce((a, c) => a + c) / result.length}
+            ms
+          </div>
+          <button onClick={this.onReset}>리셋</button>
+        </>
       );
     }
   };
