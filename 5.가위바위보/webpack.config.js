@@ -3,7 +3,7 @@ const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  name: "rsp-dev",
+  name: "RSP-dev",
   mode: "development",
   devtool: "eval", //hidden-source-map
   resolve: {
