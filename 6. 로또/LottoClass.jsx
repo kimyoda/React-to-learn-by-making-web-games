@@ -27,7 +27,9 @@ class LottoClass extends Component {
 
   timeouts = [];
 
-  componentDidMount() {
+  // 공통부분은 뺴서 만들어야한다.
+  runTimeouts = () => {
+    console.log("runTimeouts");
     const { winNumbers } = this.state;
     for (let i = 0; i < winNumbers.length - 1; i++) {
       this.timeouts[i] = setTimeout(() => {
@@ -44,6 +46,18 @@ class LottoClass extends Component {
         redo: true,
       });
     }, 7000);
+  };
+
+  componentDidMount() {
+    console.log("didMount");
+    this.runTimeouts();
+  }
+
+  componentDidUpdate(prevState, prevProps) {
+    console.log("didUpdate");
+    if (this.state.winBalls.length === 0) {
+      this.runTimeouts();
+    }
   }
 
   componentWillUnmount() {
@@ -51,6 +65,17 @@ class LottoClass extends Component {
       clearTimeout(v);
     });
   }
+
+  onClickRedo = () => {
+    console.log("onClickRedo");
+    this.setState({
+      winNumbers: getWinNumbers(), // 당첨 숫자들
+      winBalls: [],
+      bonus: null, // 보너스 공
+      redo: false,
+    });
+    this.timeouts = [];
+  };
 
   render() {
     const { winBalls, bonus, redo } = this.state;
