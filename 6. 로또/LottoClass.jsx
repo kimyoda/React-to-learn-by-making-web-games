@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Ball from "./Ball";
 
 function getWinNumbers() {
   console.log("getWinNumbers");
@@ -24,9 +25,36 @@ class LottoClass extends Component {
     redo: false,
   };
 
+  timeouts = [];
+
+  componentDidMount() {
+    const { winNumbers } = this.state;
+    for (let i = 0; i < winNumbers.length - 1; i++) {
+      this.timeouts[i] = setTimeout(() => {
+        this.setState((prevState) => {
+          return {
+            winBalls: [...prevState.winBalls, winNumbers[i]],
+          };
+        });
+      }, (i + 1) * 1000);
+    }
+    this.timeouts[6] = setTimeout(() => {
+      this.setState({
+        bonus: winNumbers[6],
+        redo: true,
+      });
+    }, 7000);
+  }
+
+  componentWillUnmount() {
+    this.timeouts.forEach((v) => {
+      clearTimeout(v);
+    });
+  }
+
   render() {
-    const { winBalls, bouns, redo } = this.state;
-    retrun(
+    const { winBalls, bonus, redo } = this.state;
+    return (
       <>
         <div>당첨 숫자</div>
         <div id="결과창">
@@ -35,8 +63,8 @@ class LottoClass extends Component {
           ))}
         </div>
         <div>보너스!</div>
-        {bouns && <Ball number={bouns} />}
-        <button onClick={redo ? this.onClickRedo : () => {}}>한 번 더!</button>
+        {bonus && <Ball number={bonus} />}
+        {redo && <button onClick={this.onClickRedo}>한 번 더!</button>}
       </>
     );
   }
