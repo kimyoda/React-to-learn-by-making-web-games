@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Ball from "./Ball";
 
 function getWinNumbers() {
@@ -17,8 +23,10 @@ function getWinNumbers() {
   return [...winNumbers, bonusNumber];
 }
 
+// useMemo 복잡한 함수 결과값을 기억하기에 유용하다.
 const Lotto = () => {
-  const [winNumbers, setWinNumbers] = useState(getWinNumbers);
+  const lottoNumbers = useMemo(() => getWinNumbers(), []);
+  const [winNumbers, setWinNumbers] = useState(lottoNumbers);
   const [winBalls, setWinBalls] = useState([]);
   const [bonus, setBonus] = useState(null);
   const [redo, setRedo] = useState(false);
@@ -42,14 +50,17 @@ const Lotto = () => {
     };
   }, [timeouts.current]); //input 자리가 빈배열이면 componetDidMount와 같다.
   // 배열에 요소가 있으면 componetDidMount, componenetDidUpdate 둘 다 수행한다.
-  const onClickRedo = () => {
+
+  // useCallback은 함수 자체를 기억한다. onClickRedo가 재생성되지 않는다.
+  const onClickRedo = useCallback(() => {
     console.log("onClickRedo");
+    console.log(winNumbers);
     setWinNumbers(getWinNumbers());
     setWinBalls([]);
     setBonus(null);
     setRedo(false);
     timeouts.current = [];
-  };
+  }, [winNumbers]);
 
   return (
     <>
