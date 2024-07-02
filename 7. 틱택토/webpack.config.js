@@ -3,7 +3,7 @@ const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  name: "RSP-dev",
+  name: "tictactoe-dev",
   mode: "development",
   devtool: "eval", //hidden-source-map
   resolve: {
